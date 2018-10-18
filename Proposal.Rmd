@@ -1,0 +1,15 @@
+---
+title: "Final Project Proposal"
+author: "Oliver Cordeiro"
+date: "10/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For my final project I am going to use the PGA tour data along with Peter George and Grant Fairbairn. 
+
+
+
