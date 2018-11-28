@@ -1,0 +1,12 @@
+name: first-app
+title: first-app
+username:
+account: oliver-cordeiro
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 550046
+bundleId: 1678896
+url: https://oliver-cordeiro.shinyapps.io/first-app/
+when: 1541182806.99954
+asMultiple: FALSE
+asStatic: FALSE
