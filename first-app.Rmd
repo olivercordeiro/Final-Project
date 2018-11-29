@@ -1,0 +1,48 @@
+---
+title: "first app"
+author: "Oliver Cordeiro"
+date: "11/1/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(fs)
+library(knitr)
+library(formattable)
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+download.file("http://statsdownload.pgatourhq.com/20181101014855187.txt/coursesdata012168.ZIP", destfile = "coursesdata.zip")
+
+unzip("coursesdata.zip")
+
+courses <- read_delim("coursesdata.zip", delim = ";", col_names = FALSE, escape_double = FALSE, skip =1)
+
+courses <- courses %>% 
+  transmute(year = X1, course_num = X2, course_name = X3, round = X4, hole = X5, fwy_width = X9, rough_heigt = X19, stimp = X21, yardage = X27, par = X28)
+
+courses %>% 
+  arrange(course_num)
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+courses %>% 
+  filter(course_num == c("004", "005", "011", "006", "009", "012")) %>% 
+  group_by(course_name) %>% 
+  summarize(avgyard = sum(yardage)) %>% 
+  ggplot(aes(x= course_name, y= avgyard)) +
+  geom_point() +
+  xlab("Course Name") + 
+  ylab("Average Yard per Hole") +
+  theme_bw()+
+  theme_linedraw()
+
+```
+
