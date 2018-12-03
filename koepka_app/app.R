@@ -50,7 +50,9 @@ server <- function(input, output) {
         labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
              caption = "Data provided by PGA Tour", 
              x = "Event", 
-             y = input$yaxis) +
+             y = input$yaxis, 
+             color = "Win") +
+       scale_color_manual(values = c("black","red")) +
        geom_label_repel(aes(label = event), size = 3, force = 3) +
        theme_bw() +
        theme_linedraw() +

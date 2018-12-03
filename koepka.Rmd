@@ -49,8 +49,6 @@ koepka <- koepka %>%
   group_by(event) %>% 
   summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
 
-koepka$win <- as.character(koepka$win)
-
 koepka <- koepka %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
@@ -58,6 +56,23 @@ koepka <- koepka %>%
 koepka
 write_rds(koepka, "koepka_app/koepka.rds", compress = "none")
 ```
+
+```{r}
+ x<- ggplot(koepka, aes(x = event, y = total, color = win)) + 
+        geom_point() +
+        labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
+             caption = "Data provided by PGA Tour", 
+             x = "Event", 
+             y = "total", 
+             color = "Win") +
+       scale_color_manual(values = c("black","red")) +
+       geom_label_repel(aes(label = event), size = 3, force = 3) +
+       theme_bw() +
+       theme_linedraw() +
+       theme(axis.text.x=element_blank())
+x
+```
+
 
 
 ```{r}
@@ -97,6 +112,9 @@ woods <- woods %>%
   group_by(event) %>% 
   summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
 
+woods <- woods %>% 
+  mutate(win = case_when(win == 0 ~ "Did Not Win", 
+                   win == 1 ~ "Won Tournamnet"))
 
 write_rds(woods, "koepka_app/woods.rds", compress = "none")
 ```
