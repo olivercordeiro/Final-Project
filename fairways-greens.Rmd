@@ -1,0 +1,76 @@
+---
+title: "fairways and greens"
+author: "Oliver Cordeiro"
+date: "12/3/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(janitor)
+library(readxl)
+library(tidyverse)
+```
+
+
+```{r}
+koepkaFG <- read_excel("koepka2018.xlsx")
+
+koepkaFG <- koepkaFG %>% 
+  clean_names() %>% 
+  select(event_name, par, score, rtp_score, hit_fwy, hit_green, hit_greenside_bunker, sand_save) %>% 
+  mutate(hit_fwy = case_when(hit_fwy == 0 ~ "Missed", 
+                   hit_fwy == 1 ~ "Hit")) %>% 
+  mutate(hit_green = case_when(hit_green == 0 ~ "Missed", 
+                   hit_green == 1 ~ "Hit"))
+koepkaFG
+write_rds(koepkaFG, "Players2018/koepkaFG.rds", compress = "none")
+```
+
+```{r}
+woodsFG <- read_excel("~/Data/Final-Project/Woods2018.xlsx")
+
+woodsFG <- woodsFG %>% 
+  clean_names() %>% 
+  select(event_name, par, score, rtp_score, hit_fwy, hit_green, hit_greenside_bunker, sand_save) %>% 
+  mutate(hit_fwy = case_when(hit_fwy == 0 ~ "Missed", 
+                   hit_fwy == 1 ~ "Hit")) %>% 
+  mutate(hit_green = case_when(hit_green == 0 ~ "Missed", 
+                   hit_green == 1 ~ "Hit"))
+
+write_rds(woodsFG, "Players2018/woodsFG.rds", compress = "none")
+```
+
+
+```{r}
+roseFG <- read_excel("rose2018.xlsx")
+
+roseFG <- roseFG %>% 
+  clean_names() %>% 
+  select(event_name, par, score, rtp_score, hit_fwy, hit_green, hit_greenside_bunker, sand_save) %>% 
+  mutate(hit_fwy = case_when(hit_fwy == 0 ~ "Missed", 
+                   hit_fwy == 1 ~ "Hit")) %>% 
+  mutate(hit_green = case_when(hit_green == 0 ~ "Missed", 
+                   hit_green == 1 ~ "Hit"))
+
+write_rds(roseFG, "Players2018/roseFG.rds", compress = "none")
+```
+
+```{r}
+johnsonFG <- read_excel("johnson2018.xlsx")
+
+johnsonFG <- johnsonFG %>% 
+  clean_names() %>% 
+  select(event_name, par, score, rtp_score, hit_fwy, hit_green, hit_greenside_bunker, sand_save) %>% 
+  mutate(hit_fwy = case_when(hit_fwy == 0 ~ "Missed", 
+                   hit_fwy == 1 ~ "Hit")) %>% 
+  mutate(hit_green = case_when(hit_green == 0 ~ "Missed", 
+                   hit_green == 1 ~ "Hit"))
+
+write_rds(johnsonFG, "Players2018/johnsonFG.rds", compress = "none")
+```
+
+
+ 
+ 
