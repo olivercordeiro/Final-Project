@@ -54,23 +54,23 @@ koepka <- koepka %>%
                    win == 1 ~ "Won Tournamnet"))
 
 koepka
-write_rds(koepka, "koepka_app/koepka.rds", compress = "none")
+write_rds(koepka, "Players2018/koepka.rds", compress = "none")
 ```
 
 ```{r}
- x<- ggplot(koepka, aes(x = event, y = total, color = win)) + 
-        geom_point() +
-        labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
-             caption = "Data provided by PGA Tour", 
-             x = "Event", 
-             y = "total", 
-             color = "Win") +
-       scale_color_manual(values = c("black","red")) +
-       geom_label_repel(aes(label = event), size = 3, force = 3) +
-       theme_bw() +
-       theme_linedraw() +
-       theme(axis.text.x=element_blank())
-x
+#  x<- ggplot(koepka, aes(x = event, y = total, color = win)) + 
+#         geom_point() +
+#         labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
+#              caption = "Data provided by PGA Tour", 
+#              x = "Event", 
+#              y = "total", 
+#              color = "Win") +
+#        scale_color_manual(values = c("black","red")) +
+#        geom_label_repel(aes(label = event), size = 3, force = 3) +
+#        theme_bw() +
+#        theme_linedraw() +
+#        theme(axis.text.x=element_blank())
+# x
 ```
 
 
@@ -116,7 +116,95 @@ woods <- woods %>%
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
 
-write_rds(woods, "koepka_app/woods.rds", compress = "none")
+write_rds(woods, "Players2018/woods.rds", compress = "none")
 ```
 
+```{r}
+# Justin Rose Code
+rose <- read_excel("~/Data/Final-Project/rose2018.xlsx")
+
+rose <- rose %>% 
+  rename(tour = Tour, 
+         year = `Tournament Year`, 
+         schedule_num = `Tournament Schedule #`, 
+         lastname = `Last Name`, 
+         firstname = `First Name`, 
+         hole = `Hole #`, 
+         round = `Round #`, 
+         finalround = `Final Round`, 
+         win = `Win`, 
+         event = `Event Name`, 
+         course = `Course Name`, 
+         par = Par, 
+         scorecard_yard = `Scorecard Yard`, 
+         actual_yard = `Actual Yard`, 
+         score = `Score`, 
+         fairway = `Hit Fwy`, 
+         green = `Hit Green`, 
+         drive = `Driving Distance (rounded)`,
+         approach = `Appr Shot Dist to the Pin`, 
+         putt = `Made Putt Distance`, 
+         putts_gained = `Putts Gained`, 
+         sg_t2g = `SG T2G`, 
+         sg_total = `SG Total`, 
+         sg_ott = `OTT Strokes Gained`, 
+         sg_app = `APP Strokes Gained`, 
+         sg_arg = `ARG Strokes Gained`) %>% 
+  select(tour, year, schedule_num, lastname, firstname, hole, round, finalround, win, event, course, par, scorecard_yard, actual_yard, score, fairway, green, drive, approach, putt, putts_gained , sg_t2g , sg_total, sg_ott, sg_app, sg_arg)
+
+rose <- rose %>% 
+  group_by(event) %>% 
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+
+rose <- rose %>% 
+  mutate(win = case_when(win == 0 ~ "Did Not Win", 
+                   win == 1 ~ "Won Tournamnet"))
+
+write_rds(rose, "Players2018/rose.rds", compress = "none")
+```
+
+
+```{r}
+# Dustin Johnson Code
+johnson <- read_excel("~/Data/Final-Project/johnson2018.xlsx")
+
+johnson <- johnson %>% 
+  rename(tour = Tour, 
+         year = `Tournament Year`, 
+         schedule_num = `Tournament Schedule #`, 
+         lastname = `Last Name`, 
+         firstname = `First Name`, 
+         hole = `Hole #`, 
+         round = `Round #`, 
+         finalround = `Final Round`, 
+         win = `Win`, 
+         event = `Event Name`, 
+         course = `Course Name`, 
+         par = Par, 
+         scorecard_yard = `Scorecard Yard`, 
+         actual_yard = `Actual Yard`, 
+         score = `Score`, 
+         fairway = `Hit Fwy`, 
+         green = `Hit Green`, 
+         drive = `Driving Distance (rounded)`,
+         approach = `Appr Shot Dist to the Pin`, 
+         putt = `Made Putt Distance`, 
+         putts_gained = `Putts Gained`, 
+         sg_t2g = `SG T2G`, 
+         sg_total = `SG Total`, 
+         sg_ott = `OTT Strokes Gained`, 
+         sg_app = `APP Strokes Gained`, 
+         sg_arg = `ARG Strokes Gained`) %>% 
+  select(tour, year, schedule_num, lastname, firstname, hole, round, finalround, win, event, course, par, scorecard_yard, actual_yard, score, fairway, green, drive, approach, putt, putts_gained , sg_t2g , sg_total, sg_ott, sg_app, sg_arg)
+
+johnson <- johnson %>% 
+  group_by(event) %>% 
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+
+johnson <- johnson %>% 
+  mutate(win = case_when(win == 0 ~ "Did Not Win", 
+                   win == 1 ~ "Won Tournamnet"))
+
+write_rds(johnson, "Players2018/johnson.rds", compress = "none")
+```
 
