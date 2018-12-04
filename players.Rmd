@@ -53,7 +53,8 @@ koepka <- koepka %>%
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
 
-koepka
+koepka$event <- str_to_upper(koepka$event)
+
 write_rds(koepka, "Players2018/koepka.rds", compress = "none")
 ```
 
@@ -116,6 +117,8 @@ woods <- woods %>%
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
 
+woods$event <- str_to_upper(woods$event)
+
 write_rds(woods, "Players2018/woods.rds", compress = "none")
 ```
 
@@ -159,6 +162,8 @@ rose <- rose %>%
 rose <- rose %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
+
+rose$event <- str_to_upper(rose$event)
 
 write_rds(rose, "Players2018/rose.rds", compress = "none")
 ```
@@ -204,6 +209,9 @@ johnson <- johnson %>%
 johnson <- johnson %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
+
+johnson$event <- str_to_upper(johnson$event)
+
 
 write_rds(johnson, "Players2018/johnson.rds", compress = "none")
 ```
