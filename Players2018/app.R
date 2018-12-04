@@ -23,7 +23,7 @@ sg_choices <- c("Total" = "total",
 ui <- fluidPage(
    
    
-   titlePanel("Koepka App"),
+   titlePanel("Fill out github excell"),
    
     
    sidebarLayout(
@@ -35,7 +35,11 @@ ui <- fluidPage(
       
       
       mainPanel(
-         plotOutput("myPlot")
+        tabsetPanel(type = "tabs",
+                    tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
+                    tabPanel("Tiger Woods", plotOutput("woodsPlot"))
+        )
+        
       )
    )
 )
@@ -43,31 +47,37 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$myPlot <- renderPlot({
+   output$koepkaPlot <- renderPlot({
      
-     ggplot(koepka, aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
+     koepka %>% 
+        filter(!total %in% 0) %>% 
+        ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
         geom_point() +
         labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
-             caption = "Data provided by PGA Tour", 
+             caption = "Data provided by the PGA Tour", 
              x = "Event", 
-             y = input$yaxis, 
-             color = "Win") +
-       scale_color_manual(values = c("black","red")) +
+             y = input$yaxis) +
+      #scale_color_manual(values = c("black","red")) +
        geom_label_repel(aes(label = event), size = 3, force = 3) +
        theme_bw() +
        theme_linedraw() +
-       theme(axis.text.x=element_blank())
-     
+       theme(axis.text.x = element_blank())
+   })
+   
+   
+    output$woodsPlot <- renderPlot({ 
+      
+      
      ggplot(woods, aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
        geom_point() +
-       labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
-            caption = "Data provided by PGA Tour", 
+       labs(title = "Looking at Tiger Woods' Comeback 2018 Season", 
+            caption = "Data provided by the PGA Tour", 
             x = "Event", 
             y = input$yaxis) +
        geom_label_repel(aes(label = event), size = 3, force = 3) +
        theme_bw() +
        theme_linedraw() +
-       theme(axis.text.x=element_blank()) 
+       theme(axis.text.x = element_blank()) 
    })
 }
 
