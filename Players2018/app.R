@@ -22,21 +22,29 @@ sg_choices <- c("Total" = "total",
                 "Approach" = "app", 
                 "Around Green" = "arg")
 
+#
 ui <- fluidPage(
   
-  
+ #  
   titlePanel("Fill out github excell"),
   
-  
+  #
   sidebarLayout(
+    
+    #
     sidebarPanel(
+      
+      #
       selectInput("yaxis",
                   label = "Choose Strokes Gained Stat",
-                  choices = sg_choices)
-    ),
+                  choices = sg_choices)),
+    #
+    br(),
     
-    
+    #
     mainPanel(
+      
+      #
       tabsetPanel(type = "tabs",
                   tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
                   tabPanel("Justin Rose", plotOutput("rosePlot")), 
@@ -51,8 +59,10 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
+  #
   output$koepkaPlot <- renderPlot({
     
+    #
     koepka %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -69,8 +79,10 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
+  #
   output$johnsonPlot <- renderPlot({
     
+    #
     johnson %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -87,8 +99,10 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
+  #
   output$rosePlot <- renderPlot({
     
+    #
     rose %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -105,9 +119,10 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
+  #
   output$woodsPlot <- renderPlot({ 
     
-    
+    #
     ggplot(woods, aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at Tiger Woods' Comeback 2018 Season", 
