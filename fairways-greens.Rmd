@@ -17,6 +17,7 @@ library(tidyverse)
 ```{r}
 koepkaFG <- read_excel("koepka2018.xlsx")
 
+# I reran my excel sheets for each player and remembered to use clean_names this time! Much easier! I then kept only the fairway and greens variables because I wanted to look at fairways and greens hit next to score to par. 
 koepkaFG <- koepkaFG %>% 
   clean_names() %>% 
   select(event_name, par, score, rtp_score, hit_fwy, hit_green, hit_greenside_bunker, sand_save) %>% 
@@ -24,11 +25,14 @@ koepkaFG <- koepkaFG %>%
                    hit_fwy == 1 ~ "Hit")) %>% 
   mutate(hit_green = case_when(hit_green == 0 ~ "Missed", 
                    hit_green == 1 ~ "Hit"))
+# I had to rename the 0s and 1s again to make the graph make sense. 
 koepkaFG
 write_rds(koepkaFG, "Players2018/koepkaFG.rds", compress = "none")
+# I created an rds for each player because I found that to be the easiest way to keep the data clean and organized. Basically the same as the strokes gained rds files. 
 ```
 
 ```{r}
+# Tiger Woods FG Code - The same data cleaning as above
 woodsFG <- read_excel("~/Data/Final-Project/Woods2018.xlsx")
 
 woodsFG <- woodsFG %>% 
@@ -44,6 +48,7 @@ write_rds(woodsFG, "Players2018/woodsFG.rds", compress = "none")
 
 
 ```{r}
+# Justin Rose FG Code - The same data cleaning process as above. 
 roseFG <- read_excel("rose2018.xlsx")
 
 roseFG <- roseFG %>% 
@@ -58,6 +63,7 @@ write_rds(roseFG, "Players2018/roseFG.rds", compress = "none")
 ```
 
 ```{r}
+# Dustin Johnson FG Code - The same data cleaning as above. 
 johnsonFG <- read_excel("johnson2018.xlsx")
 
 johnsonFG <- johnsonFG %>% 

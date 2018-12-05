@@ -8,7 +8,6 @@
 #
 
 library(shiny)
-library(shinyWidgets)
 library(shinythemes)
 library(ggrepel)
 library(tidyverse)
