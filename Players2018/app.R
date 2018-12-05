@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+library(shinyWidgets)
+library(shinythemes)
 library(ggrepel)
 library(tidyverse)
 
@@ -33,6 +35,8 @@ sg_choices <- c("Total" = "total",
 
 # d
 ui <- navbarPage("PGA Tour Data", 
+    
+                 theme = shinytheme("flatly"),
   
  #  d
   tabPanel("Stroke Gained",
@@ -93,7 +97,11 @@ ui <- navbarPage("PGA Tour Data",
         radioButtons("green", 
                      "Green Hit", 
                      choices = c("Hit", "Missed")
-        )
+        ), 
+        
+        h5("You can select if a player hit or missed the fairway and then hit or missed 
+           the green in regulation. In general, hitting the fairway and then the green should lead to 
+           lower scores.")
       ), 
       
       mainPanel(
@@ -113,23 +121,42 @@ ui <- navbarPage("PGA Tour Data",
              # d
       sidebarPanel(
         
-        h6("In this tab I will discuss some general conclusions and insights based
+        h4("In this tab I discuss some general conclusions and insights based
                   on the previous two tabs.")
       ), 
         mainPanel(
           
           tabsetPanel(type = "tabs",
-                  tabPanel("Strokes Gained", h6(
+                  tabPanel("Strokes Gained", h5(
 
-"In the case of the top three players in the world, 
+"In the case of the top three players in the world (Brooks Koepka, Justin Rose and Dustin Johnson), 
+they tend to lead the field in strokes gained: off the tee in tournaments they won in 2018. This 
+is not the case for Tiger Woods, but that is not surprising because he is returning from injury 
+and has never been known for driving the ball very consistently but rather hitting great recovery 
+shots. As for strokes gained: putting, I was surprised to see that while these players tended to 
+gain strokes while putting in tournaments, it was not far and away better than tournaments they did 
+not win. For example, Justin Rose, winner of the Fort Worth Invitational, gained around 0.04 strokes 
+putting in that tournament but there were five tournaments he did not win where he gained more 
+strokes putting. This leads me to believe that a player must excel in all areas in a given week 
+but putting is not far more important than driving as is suggested by the expression." 
 
                                                 
-                                                ")),
-                  tabPanel("Fairways and Greens", h6("conclusions"))
+                                                )),
+                  tabPanel("Fairways and Greens", h5(
+
+"In the second tab I look at whether or not a player hit or missed the fairway and then the green 
+and how that impacted their score relative to par. I was not surprised to see that players that 
+hit the green made many more pars than those that missed the green. One interesting thing I found 
+was that of players who hit the green, there was not a big difference in number of pars made based 
+on whether or not they hit the fairway. However, if a player missed the fairway and then hit the 
+green, they made far fewer birdies while making a similar number of pars. This was consistent 
+across all four players. I think this is a result of being in the fairway allows the player it 
+hit it closer than from the rough."
+                  ))
           )
         )
     )
-  )
+  ) 
 )
 
 # Define server logic required to draw a histogram
