@@ -18,9 +18,7 @@ If, on a certain day, a player shoots a 69 and the tournament average is 72 then
 
 https://www.pgatour.com/news/2016/05/31/strokes-gained-defined.html
 
-
-## Summary
-
+## Shiny App
 
 Here is a link to my shiny app:
 https://oliver-cordeiro.shinyapps.io/PGA-Tour-Strokes-Gained/
