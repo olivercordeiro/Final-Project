@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(readxl)
+
+# This is the R Markdown file where I clean up the data for strokes gained for my final project. While I Peter George, Grant Fairbairn and I used the same source for our data our projects were built individually. 
 ```
 
 
@@ -47,7 +49,7 @@ koepka <- koepka %>%
 
 koepka <- koepka %>% 
   group_by(event) %>% 
-  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg), putt = mean(putts_gained))
 
 koepka <- koepka %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
@@ -111,7 +113,7 @@ woods <- woods %>%
 
 woods <- woods %>% 
   group_by(event) %>% 
-  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg), putt = mean(putts_gained))
 
 woods <- woods %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
@@ -157,7 +159,7 @@ rose <- rose %>%
 
 rose <- rose %>% 
   group_by(event) %>% 
-  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg), putt = mean(putts_gained))
 
 rose <- rose %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
@@ -204,7 +206,7 @@ johnson <- johnson %>%
 
 johnson <- johnson %>% 
   group_by(event) %>% 
-  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg))
+  summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg), putt = mean(putts_gained))
 
 johnson <- johnson %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 

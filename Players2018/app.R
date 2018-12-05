@@ -11,24 +11,25 @@ library(shiny)
 library(ggrepel)
 library(tidyverse)
 
-
+# ~/Data/Final-Project/Players2018/
 # strokes gained rds
-koepka <- readRDS("~/Data/Final-Project/Players2018/koepka.rds")
-johnson <- readRDS("~/Data/Final-Project/Players2018/johnson.rds")
-rose <- readRDS("~/Data/Final-Project/Players2018/rose.rds")
-woods <- readRDS("~/Data/Final-Project/Players2018/woods.rds")
+koepka <- readRDS("koepka.rds")
+johnson <- readRDS("johnson.rds")
+rose <- readRDS("rose.rds")
+woods <- readRDS("woods.rds")
 
 # fairways and greens rds
-koepkaFG <- readRDS("~/Data/Final-Project/Players2018/koepkaFG.rds")
-woodsFG <- readRDS("~/Data/Final-Project/Players2018/woodsFG.rds")
-roseFG <- readRDS("~/Data/Final-Project/Players2018/roseFG.rds")
-johnsonFG <- readRDS("~/Data/Final-Project/Players2018/johnsonFG.rds")
+koepkaFG <- readRDS("koepkaFG.rds")
+woodsFG <- readRDS("woodsFG.rds")
+roseFG <- readRDS("roseFG.rds")
+johnsonFG <- readRDS("johnsonFG.rds")
 
 sg_choices <- c("Total" = "total",
                 "Off the Tee" = "ott",
                 "Tee to Green" = "t2g",
                 "Approach" = "app", 
-                "Around Green" = "arg")
+                "Around Green" = "arg",
+                "Putting" = "putt")
 
 # d
 ui <- navbarPage("PGA Tour Data", 
@@ -46,8 +47,19 @@ ui <- navbarPage("PGA Tour Data",
       selectInput("yaxis",
                   label = "Choose Strokes Gained Stat",
                   choices = sg_choices),
-      h6("Using the box above you can select which strokes 
-         gained statistic you want to view.")),
+      h5("Use the box above to select which strokes 
+         gained statistic you want to view."), 
+      br(), 
+      h6("The strokes gained statistic was developed by the Professor 
+         Mark Broadie of Columbia University alongside the PGA Tour. 
+         It is considered the best method for judging play because it 
+         isolates the different aspects of the game. If, on a certain 
+         day, a player shoots a 69 and the tournament average is 72 
+         then that player will have gained three strokes on the 
+         field. The statistic uses a combination of distance to the pin, 
+         location (fairway or rough) and other factors to calculate a 
+         baseline and then compares it with the player's result to see 
+         if they gained or lost strokes. ")),
     
     # 
     mainPanel(
@@ -92,6 +104,30 @@ ui <- navbarPage("PGA Tour Data",
                     tabPanel("Tiger Woods", plotOutput("woodsFGPlot"))
         )
       )
+    )
+  ), 
+  tabPanel("Insights",
+           # d
+    sidebarLayout(
+             
+             # d
+      sidebarPanel(
+        
+        h6("In this tab I will discuss some general conclusions and insights based
+                  on the previous two tabs.")
+      ), 
+        mainPanel(
+          
+          tabsetPanel(type = "tabs",
+                  tabPanel("Strokes Gained", h6(
+
+"In the case of the top three players in the world, 
+
+                                                
+                                                ")),
+                  tabPanel("Fairways and Greens", h6("conclusions"))
+          )
+        )
     )
   )
 )
