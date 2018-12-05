@@ -197,7 +197,20 @@ not win. For example, Justin Rose, winner of the Fort Worth Invitational, gained
 putting in that tournament but there were five tournaments he did not win where he gained more 
 strokes putting. This leads me to believe that a player must excel in all areas in a given week 
 but putting is not far more important than driving as is suggested by the expression." 
-                                                )),
+                                                ), 
+
+                                # Insert line break ----
+
+                                br(), 
+
+                                # More insights ----
+
+                                h5(
+  "Another interesting thing I noticed was at the one match play event this season, world number one
+  at the time, Dustin Johnson had his worst strokes gained: total score. I wonder if this is due to 
+  format of the event or if he just had a bad week."
+                                )
+),
 
                   # Tab for Fairways and Greens ----
 
@@ -231,25 +244,27 @@ server <- function(input, output) {
     
     # I wanted someway to look at different strokes gained stats for each player so I put together
     # this graph. Because there are six different statistics I figured the best way to show it would
-    # be a graph with changing y axis for each stat and a constant x axis. Tournament was the only 
-    # logical option for x axis. I first tried a line plot but that did not make sense because the tournaments
-    # were not in chronological order. Some problems I encountered were making the y axis visibly
-    # appealing instead of just the variable name. 
+    # be a graph with changing y axis for each stat. I first had tournament teh x axis but it looked
+    # like it was trying to show something chronological, even though the events were just alphabetical.
+    # I decided to remove the x axis and just order the points vertically by strokes gained score. I
+    # spent some time fiddling with the location and style of the point labels but ultimately opted to 
+    # move them to the side. 
     
     koepka %>% 
       filter(!total %in% 0) %>% 
-      ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
+      ggplot(aes_string(x = '0', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at World Number One Brooks Koepka's 2018 Season", 
            caption = "Data provided by the PGA Tour", 
-           x = "Event", 
+           x = "", 
            y = input$yaxis, 
            color = "Win") +
       scale_color_manual(values = c("black","red")) +
-      geom_label_repel(aes(label = event), size = 3, force = 3) +
+      geom_label_repel(aes(label = event), size = 3, force = 3, nudge_x = -1, segment.alpha = 0.2, direction = "both", hjust = 0) +
       theme_bw() +
       theme_linedraw() +
-      theme(axis.text.x = element_blank())
+      theme(axis.text.x = element_blank()) +
+      scale_x_discrete()
   })
   
   # Render plot for Rose strokes gained ----
@@ -260,18 +275,19 @@ server <- function(input, output) {
     
     rose %>% 
       filter(!total %in% 0) %>% 
-      ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
+      ggplot(aes_string(x = '0', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at World Number Two Justin Rose's 2018 Season", 
            caption = "Data provided by the PGA Tour", 
-           x = "Event", 
+           x = "", 
            y = input$yaxis, 
            color = "Win") +
       scale_color_manual(values = c("black","red")) +
-      geom_label_repel(aes(label = event), size = 3, force = 3) +
+      geom_label_repel(aes(label = event), size = 3, force = 3, nudge_x = -1, segment.alpha = 0.2, direction = "both", hjust = 0) +
       theme_bw() +
       theme_linedraw() +
-      theme(axis.text.x = element_blank())
+      theme(axis.text.x = element_blank()) +
+      scale_x_discrete()
   })
   
   # Render plot for Johnson strokes gained ----
@@ -282,18 +298,19 @@ server <- function(input, output) {
     
     johnson %>% 
       filter(!total %in% 0) %>% 
-      ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
+      ggplot(aes_string(x = '0', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at World Number Three Dustin Johnson's 2018 Season", 
            caption = "Data provided by the PGA Tour", 
-           x = "Event", 
+           x = "", 
            y = input$yaxis, 
            color = "Win") +
       scale_color_manual(values = c("black","red")) +
-      geom_label_repel(aes(label = event), size = 3, force = 3) +
+      geom_label_repel(aes(label = event), size = 3, force = 3, nudge_x = -1, segment.alpha = 0.2, direction = "both", hjust = 0) +
       theme_bw() +
       theme_linedraw() +
-      theme(axis.text.x = element_blank())
+      theme(axis.text.x = element_blank()) +
+      scale_x_discrete()
   })
   
   # Render plot for Woods strokes gained ----
@@ -302,18 +319,19 @@ server <- function(input, output) {
     
     # I used the same proces for each graph for strokes ----
     
-    ggplot(woods, aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
+    ggplot(woods, aes_string(x = '0', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at Tiger Woods' Comeback 2018 Season", 
            caption = "Data provided by the PGA Tour", 
-           x = "Event", 
-           y = input$yaxis, 
+           x = "", 
+           y = "Strokes Gained", 
            color = "Win") +
       scale_color_manual(values = c("black","red")) +
-      geom_label_repel(aes(label = event), size = 3, force = 3) +
+      geom_label_repel(aes(label = event), size = 3, force = 3, nudge_x = -1, segment.alpha = 0.2, direction = "both", hjust = 0) +
       theme_bw() +
       theme_linedraw() +
-      theme(axis.text.x = element_blank()) 
+      theme(axis.text.x = element_blank())  +
+      scale_x_discrete()
   })
   
   # Render plot for Koepka fairway and greens ----
@@ -330,7 +348,7 @@ server <- function(input, output) {
              hit_green %in% input$green, 
              rtp_score >= -2) %>% 
       ggplot(aes(x = rtp_score)) +
-      geom_histogram(binwidth = .5) +
+      geom_histogram(binwidth = 1, fill = "#2E4053") +
       labs(title = "Score to Par and Fairways and Greens Hit", 
            caption = "Data provided by the PGA Tour", 
            x = "Score to Par", 
@@ -351,7 +369,7 @@ server <- function(input, output) {
              hit_green %in% input$green, 
              rtp_score >= -2) %>% 
       ggplot(aes(x = rtp_score)) +
-      geom_histogram(binwidth = .5) +
+      geom_histogram(binwidth = 1, fill = "#2E4053") +
       labs(title = "Score to Par and Fairways and Greens Hit", 
            caption = "Data provided by the PGA Tour", 
            x = "Score to Par", 
@@ -373,7 +391,7 @@ server <- function(input, output) {
              hit_green %in% input$green, 
              rtp_score >= -2) %>% 
       ggplot(aes(x = rtp_score)) +
-      geom_histogram(binwidth = .5) +
+      geom_histogram(binwidth = 1, fill = "#2E4053") +
       labs(title = "Score to Par and Fairways and Greens Hit", 
            caption = "Data provided by the PGA Tour", 
            x = "Score to Par", 
@@ -394,7 +412,7 @@ server <- function(input, output) {
              hit_green %in% input$green, 
              rtp_score >= -2) %>% 
       ggplot(aes(x = rtp_score)) +
-      geom_histogram(binwidth = .5) +
+      geom_histogram(binwidth = 1, fill = "#2E4053") +
       labs(title = "Score to Par and Fairways and Greens Hit", 
            caption = "Data provided by the PGA Tour", 
            x = "Score to Par", 
