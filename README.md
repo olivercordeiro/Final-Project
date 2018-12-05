@@ -21,7 +21,7 @@ https://www.pgatour.com/news/2016/05/31/strokes-gained-defined.html
 ## Shiny App
 
 Here is a link to my shiny app:
-https://oliver-cordeiro.shinyapps.io/PGA-Tour-Strokes-Gained/
+[as](https://oliver-cordeiro.shinyapps.io/PGA-Tour-Strokes-Gained/)
 
 
 Created by Oliver Cordeiro at Harvard University as part of GOV 1005 final project.
