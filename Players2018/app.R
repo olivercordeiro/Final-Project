@@ -12,18 +12,30 @@ library(shinythemes)
 library(ggrepel)
 library(tidyverse)
 
-# ~/Data/Final-Project/Players2018/
-# strokes gained rds
+# I decided to choose 4 golfers - the top 3 in the world at the end of last season 
+# (Brooks Koepka, Justin Rose and Dustin Johnson) as well as number 14 Tiger Woods 
+# who had a historic comeback season from injury that ended with a win at the Tour 
+# Championship 
+
+
+# I read in the 4 rds files for each player - I opted to make an rds for each player 
+# because it was easier to manage and tidier than one big one. These rds are for the
+# strokes gained statistic
+
 koepka <- readRDS("koepka.rds")
 johnson <- readRDS("johnson.rds")
 rose <- readRDS("rose.rds")
 woods <- readRDS("woods.rds")
 
-# fairways and greens rds
+# Here are the rds for the fairways and greens tabs that I created in fairways-greens.Rmd
+
 koepkaFG <- readRDS("koepkaFG.rds")
 woodsFG <- readRDS("woodsFG.rds")
 roseFG <- readRDS("roseFG.rds")
 johnsonFG <- readRDS("johnsonFG.rds")
+
+# This tip from the PSET 7 solutions (thanks Nick and Albert) was very helpful because I was 
+# struggling to make the choices in my first sidebar look good. 
 
 sg_choices <- c("Total" = "total",
                 "Off the Tee" = "ott",
@@ -32,27 +44,42 @@ sg_choices <- c("Total" = "total",
                 "Around Green" = "arg",
                 "Putting" = "putt")
 
-# d
+# Define ui as an app with different tabs ----
+
 ui <- navbarPage("PGA Tour Data", 
-    
-                 theme = shinytheme("flatly"),
+                 
+  # Change theme ----
+  theme = shinytheme("flatly"),
   
- #  d
+ # Tab layout with sidebar and main panel ----
+ 
   tabPanel("Stroke Gained",
   
-  # d
+  # Sidebar layout with a select box and descriptive text ----
+  
   sidebarLayout(
     
-    # d
+    # Sidebar panel for inputs ----
+    
     sidebarPanel(
       
-      # d
+      # Input: select for strokes gained stat ----
+      
       selectInput("yaxis",
                   label = "Choose Strokes Gained Stat",
                   choices = sg_choices),
+      
+      # Text instructions for the select box ----
+      
       h5("Use the box above to select which strokes 
          gained statistic you want to view."), 
+      
+      # Line break between text ----
+      
       br(), 
+      
+      # More text describing strokes gained in a smaller font ----
+      
       h6("The strokes gained statistic was developed by the Professor 
          Mark Broadie of Columbia University alongside the PGA Tour. 
          It is considered the best method for judging play because it 
@@ -64,46 +91,61 @@ ui <- navbarPage("PGA Tour Data",
          baseline and then compares it with the player's result to see 
          if they gained or lost strokes. ")),
     
-    # 
+    # Main panel displaying tabs ----
+    
     mainPanel(
       
-      # 
+      # Main panel has a tab for each player ----
+      
       tabsetPanel(type = "tabs",
                   tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
                   tabPanel("Justin Rose", plotOutput("rosePlot")), 
                   tabPanel("Dustin Johnson", plotOutput("johnsonPlot")),
                   tabPanel("Tiger Woods", plotOutput("woodsPlot"))
       )
-      
     )
   )
 ), 
 
+  # Tab layout with sidebar and main panel ----
+
   tabPanel("Fairways and Greens", 
     
-    # d
+    # Sidebar layout with radio button ----
+    
     sidebarLayout(
              
-      # d
+      # Sidebar panel for inputs ----
+      
       sidebarPanel(
                
-        # d
+        # Input: radio buttons for fairway hit or missed ----
+        
         radioButtons("fairway", 
                      "Fairway Hit", 
                      choices = c("Hit", "Missed")
         ), 
+        
+        # Input: radio buttons for green hit or missed ----
         
         radioButtons("green", 
                      "Green Hit", 
                      choices = c("Hit", "Missed")
         ), 
         
+        # Text: text instructions for buttons ----
+        
         h5("You can select if a player hit or missed the fairway and then hit or missed 
            the green in regulation. In general, hitting the fairway and then the green should lead to 
            lower scores.")
       ), 
       
+      # Main panel displaying tabs ----
+      
       mainPanel(
+        
+        # Main panel has a tab for each player ----
+        
         tabsetPanel(type = "tabs",
                     tabPanel("Brooks Koepka", plotOutput("koepkaFGPlot")),
                     tabPanel("Justin Rose", plotOutput("roseFGPlot")), 
@@ -113,21 +155,38 @@ ui <- navbarPage("PGA Tour Data",
       )
     )
   ), 
+
+# Tab layout with sidebar and main panel ----
+
   tabPanel("Insights",
-           # d
+           
+           # Sidebar layout with no inputs just text ----
+           
     sidebarLayout(
              
-             # d
+             # Sidebar panel with  text describing my insights ----
+             
       sidebarPanel(
+        
+        # Text describing my insights ----
         
         h4("In this tab I discuss some general conclusions and insights based
                   on the previous two tabs.")
       ), 
+      
+        # Main panel displaying tabs ----
+      
         mainPanel(
           
+          # Tabs displaying for each project and text describing my conclusions ----
+          
           tabsetPanel(type = "tabs",
-                  tabPanel("Strokes Gained", h5(
-
+                      
+                      # Tab for strokes gained ----
+                      tabPanel("Strokes Gained", 
+                               
+                               # Text of conclusions ----
+                               h5(
 "In the case of the top three players in the world (Brooks Koepka, Justin Rose and Dustin Johnson), 
 they tend to lead the field in strokes gained: off the tee in tournaments they won in 2018. This 
 is not the case for Tiger Woods, but that is not surprising because he is returning from injury 
@@ -138,11 +197,15 @@ not win. For example, Justin Rose, winner of the Fort Worth Invitational, gained
 putting in that tournament but there were five tournaments he did not win where he gained more 
 strokes putting. This leads me to believe that a player must excel in all areas in a given week 
 but putting is not far more important than driving as is suggested by the expression." 
-
-                                                
                                                 )),
-                  tabPanel("Fairways and Greens", h5(
 
+                  # Tab for Fairways and Greens ----
+
+                  tabPanel("Fairways and Greens", 
+                           
+                           # Text of conclusions ----
+                           
+                           h5(
 "In the second tab I look at whether or not a player hit or missed the fairway and then the green 
 and how that impacted their score relative to par. I was not surprised to see that players that 
 hit the green made many more pars than those that missed the green. One interesting thing I found 
@@ -158,13 +221,21 @@ hit it closer than from the rough."
   ) 
 )
 
-# Define server logic required to draw a histogram
+# Define server logic ----
+
 server <- function(input, output) {
   
-  # 
+  # Render plot for Koepka strokes gained ----
+  
   output$koepkaPlot <- renderPlot({
     
-    # 
+    # I wanted someway to look at different strokes gained stats for each player so I put together
+    # this graph. Because there are six different statistics I figured the best way to show it would
+    # be a graph with changing y axis for each stat and a constant x axis. Tournament was the only 
+    # logical option for x axis. I first tried a line plot but that did not make sense because the tournaments
+    # were not in chronological order. Some problems I encountered were making the y axis visibly
+    # appealing instead of just the variable name. 
+    
     koepka %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -181,10 +252,12 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
-  # 
+  # Render plot for Rose strokes gained ----
+  
   output$rosePlot <- renderPlot({
     
-    # 
+    # I used the same proces for each graph for strokes ----
+    
     rose %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -201,10 +274,12 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
-  # 
+  # Render plot for Johnson strokes gained ----
+  
   output$johnsonPlot <- renderPlot({
     
-    # 
+    # I used the same proces for each graph for strokes ----
+    
     johnson %>% 
       filter(!total %in% 0) %>% 
       ggplot(aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
@@ -221,10 +296,12 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())
   })
   
-  # 
+  # Render plot for Woods strokes gained ----
+  
   output$woodsPlot <- renderPlot({ 
     
-    # 
+    # I used the same proces for each graph for strokes ----
+    
     ggplot(woods, aes_string(x = 'event', y = input$yaxis, color = 'win')) + 
       geom_point() +
       labs(title = "Looking at Tiger Woods' Comeback 2018 Season", 
@@ -239,7 +316,15 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank()) 
   })
   
+  # Render plot for Koepka fairway and greens ----
+  
   output$koepkaFGPlot <- renderPlot({
+    
+    # For my second visual I wanted to look at fairways and greens. I wanted to have the option
+    # for the user to select hit or miss for both categories. I figured the best way to do this 
+    # was to use radio buttons. I tried to use check boxes but that did not work because you 
+    # could select both hit and miss and that just didn't add anything to the display. 
+    
     koepkaFG %>% 
       filter(hit_fwy %in% input$fairway, 
              hit_green %in% input$green, 
@@ -255,7 +340,12 @@ server <- function(input, output) {
       
   })
   
+  # Render plot for Rose fairway and greens ----
+  
   output$roseFGPlot <- renderPlot({
+    
+    # I used the same method for each fairway and green visual ----
+    
     roseFG %>% 
       filter(hit_fwy %in% input$fairway, 
              hit_green %in% input$green, 
@@ -272,7 +362,12 @@ server <- function(input, output) {
     
   })
   
+  # Render plot for Johnson fairway and greens ----
+  
   output$johnsonFGPlot <- renderPlot({
+    
+    # I used the same method for each fairway and green visual ----
+    
     johnsonFG %>% 
       filter(hit_fwy %in% input$fairway, 
              hit_green %in% input$green, 
@@ -288,7 +383,12 @@ server <- function(input, output) {
     
   })
   
+  # Render plot for Woods fairway and greens ----
+  
   output$woodsFGPlot <- renderPlot({
+    
+    # I used the same method for each fairway and green visual ----
+    
     woodsFG %>% 
       filter(hit_fwy %in% input$fairway, 
              hit_green %in% input$green, 
@@ -305,7 +405,8 @@ server <- function(input, output) {
   })
 }
 
-# Run the application 
+# Run the application ----
+
 shinyApp(ui = ui, server = server)
 
 

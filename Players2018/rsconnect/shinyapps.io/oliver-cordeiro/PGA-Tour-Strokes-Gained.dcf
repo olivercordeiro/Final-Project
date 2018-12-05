@@ -1,0 +1,12 @@
+name: PGA-Tour-Strokes-Gained
+title: PGA-Tour-Strokes-Gained
+username:
+account: oliver-cordeiro
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 603552
+bundleId: 1741310
+url: https://oliver-cordeiro.shinyapps.io/PGA-Tour-Strokes-Gained/
+when: 1543981424.99701
+asMultiple: FALSE
+asStatic: FALSE
