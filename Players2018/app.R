@@ -1,19 +1,10 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(shinythemes)
 library(ggrepel)
 library(tidyverse)
 
 # I decided to choose 4 golfers - the top 3 in the world at the end of last season 
-# (Brooks Koepka, Justin Rose and Dustin Johnson) as well as number 14 Tiger Woods 
+# (Brooks Koepka, Justin Rose and Dustin Johnson) as well as world number 14 Tiger Woods 
 # who had a historic comeback season from injury that ended with a win at the Tour 
 # Championship 
 
@@ -49,6 +40,7 @@ sg_choices <- c("Total" = "total",
 ui <- navbarPage("PGA Tour Data", 
                  
   # Change theme ----
+  
   theme = shinytheme("flatly"),
   
  # Tab layout with sidebar and main panel ----
@@ -56,6 +48,7 @@ ui <- navbarPage("PGA Tour Data",
   tabPanel("Stroke Gained",
   
   # Sidebar layout with a select box and descriptive text ----
+  
   sidebarLayout(
     
     # Sidebar panel for inputs ----
@@ -71,14 +64,7 @@ ui <- navbarPage("PGA Tour Data",
       # Text instructions for the select box ----
       
       h5("Use the box above to select which strokes 
-         gained statistic you want to view.") 
-      
-      # Line break between text ----
-      
-      
-      
-      # More text describing strokes gained in a smaller font ----
-      
+         gained statistic you want to view.")
      ),
     
     # Main panel displaying tabs ----
@@ -88,7 +74,13 @@ ui <- navbarPage("PGA Tour Data",
       # Main panel has a tab for each player and an about tab----
       
       tabsetPanel(type = "tabs",
+                  
+                  # Added tab panel for an about/information tab ----
+                  
                   tabPanel("About", 
+                           
+                           # Added descriptive text to provide context for the strokes gained statistic ----
+                           
                            h5("The strokes gained statistic was developed by the Professor 
                               Mark Broadie of Columbia University alongside the PGA Tour. 
                               It is considered the best method for judging performance because it 
@@ -103,6 +95,9 @@ ui <- navbarPage("PGA Tour Data",
                            # I added a footer image to improve the aesthetics of the app ----
                            
                            HTML('<center><img src="footer.jpg" height = 144 width = 700 ></center>')),
+                  
+                  # Added tab panels for each player, output set to a plot ----
+                  
                   tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
                   tabPanel("Justin Rose", plotOutput("rosePlot")), 
                   tabPanel("Dustin Johnson", plotOutput("johnsonPlot")),
@@ -151,19 +146,40 @@ ui <- navbarPage("PGA Tour Data",
         # Main panel has a tab for each player and about ----
         
         tabsetPanel(type = "tabs",
+                    
+                    # Added tab pabel for about/info tab ----
+                    
                     tabPanel("About", 
+                             
+                             # Added descriptive text ----
+                             
                              h5("For those unfamiliar with golf, the fairway is the grass in the center
                                 of the hole that is cut even and short. If a player misses the fairway he can 
                                 find himself in the rough, longer and inconsistent grass, a water hazard, 
                                 or a bunker. For this tab we will group rough, water hazard and bunkers into
                                 the fairway missed category. Lastly we will look at a greens hit and missed. 
                                 "),
+                             
+                             # Insert line break ----
+                             
                              br(), 
+                             
+                             # Insert more text ----
+                             
                              h5("In general, a player who hits the green in regulation, allowing two putts to make 
                                 par, would be expected to score better than one that missed the green. The same 
                                 ideas can be applied to hitting and missing fairways."),
+                             
+                             # Insert line break ----
+                             
                              br(), 
+                             
+                             # I added an image help explain fairways and greens visually ----
+                             
                              HTML('<center><img src="golf.png" height = 360 width = 600 ></center>')),
+                    
+                    # Added tab panels and plot output for each player ----
+                    
                     tabPanel("Brooks Koepka", plotOutput("koepkaFGPlot")),
                     tabPanel("Justin Rose", plotOutput("roseFGPlot")), 
                     tabPanel("Dustin Johnson", plotOutput("johnsonFGPlot")),
@@ -177,11 +193,11 @@ ui <- navbarPage("PGA Tour Data",
 
   tabPanel("Insights",
            
-           # Sidebar layout with no inputs just text ----
+    # Sidebar layout with no inputs just text ----
            
     sidebarLayout(
              
-             # Sidebar panel with  text describing my insights ----
+      # Sidebar panel with  text describing my insights ----
              
       sidebarPanel(
         

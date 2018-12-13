@@ -21,6 +21,7 @@ library(readxl)
 koepka <- read_excel("koepka2018.xlsx")
 
 # I downloaded the data from the PGA Tour as an Excel spreadsheet so I would have in case their website malfunctioned. I was lucky I did this because the data export tool on the PGA stat website no longer works so I could not get any more data if I wanted to. The data I downloaded listed each hole that each player played all season so it was too big to read into R by itself. I took the data from each player I was interested and made a new Excel spreadsheet for them.I renamed all of the variables I was interested in by hand using the rename tool - I now recognize that clean names would have done this quickly and easily but hindsight is 20/20 as they say. In general, I kept variables that listed names, tournaments and strokes gained as well as information about each hole.
+
 koepka <- koepka %>% 
   rename(tour = Tour, 
          year = `Tournament Year`, 
@@ -53,22 +54,27 @@ koepka <- koepka %>%
 koepka <- koepka %>% 
   group_by(event) %>% 
   summarize(win = mean(win), t2g = mean(sg_t2g), total = mean(sg_total), ott = mean(sg_ott), app = mean(sg_app), arg = mean(sg_arg), putt = mean(putts_gained))
+
 # In order to make the data readable (because hole by hole data is just long and confusing) I grouped by each tournamnet and kept strokes gained in each category and win. 
 
 koepka <- koepka %>% 
   mutate(win = case_when(win == 0 ~ "Did Not Win", 
                    win == 1 ~ "Won Tournamnet"))
+
 # I had to rename the win variables because 0s and 1s don't make any sense on a graph. 
 
 koepka$event <- str_to_upper(koepka$event)
+
 # I also had to make all the tournamnet names consistent because they were entered in teh weirdes ways - for example the names ranged from "the PLAYERS championship" to "THE NORTHERN TRUST" and I wanted consistency. 
 
 write_rds(koepka, "Players2018/koepka.rds", compress = "none")
+
 # Lastly I made an rds so I could easily store and read my data into the shiny app. 
 ```
 
 ```{r}
 #Tiger Woods code - I did the exact same thing as above for Tiger Woods. 
+
 woods <- read_excel("~/Data/Final-Project/Woods2018.xlsx")
 
 woods <- woods %>% 
@@ -115,6 +121,7 @@ write_rds(woods, "Players2018/woods.rds", compress = "none")
 
 ```{r}
 # Justin Rose Code - I did the exact same data cleaning for Justin Rose
+
 rose <- read_excel("~/Data/Final-Project/rose2018.xlsx")
 
 rose <- rose %>% 
@@ -162,6 +169,7 @@ write_rds(rose, "Players2018/rose.rds", compress = "none")
 
 ```{r}
 # Dustin Johnson Code - I did the same data cleaning for Dustin Johnson
+
 johnson <- read_excel("~/Data/Final-Project/johnson2018.xlsx")
 
 johnson <- johnson %>% 
