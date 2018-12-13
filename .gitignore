@@ -6,5 +6,5 @@
 *.Rproj
 PGATour/
 ~*
-*.xlsx
+hole*
 *.html
