@@ -29,7 +29,7 @@ koepkaFG <- koepkaFG %>%
 
 # I had to rename the 0s and 1s again to make the graph make sense.
 
-koepkaFG
+
 write_rds(koepkaFG, "Players2018/koepkaFG.rds", compress = "none")
 
 # I created an rds for each player because I found that to be the easiest way to keep the data clean and organized. Basically the same as the strokes gained rds files. 
