@@ -75,7 +75,7 @@ write_rds(koepka, "Players2018/koepka.rds", compress = "none")
 ```{r}
 #Tiger Woods code - I did the exact same thing as above for Tiger Woods. 
 
-woods <- read_excel("~/Data/Final-Project/Woods2018.xlsx")
+woods <- read_excel("Woods2018.xlsx")
 
 woods <- woods %>% 
   rename(tour = Tour, 
@@ -122,7 +122,7 @@ write_rds(woods, "Players2018/woods.rds", compress = "none")
 ```{r}
 # Justin Rose Code - I did the exact same data cleaning for Justin Rose
 
-rose <- read_excel("~/Data/Final-Project/rose2018.xlsx")
+rose <- read_excel("rose2018.xlsx")
 
 rose <- rose %>% 
   rename(tour = Tour, 
@@ -170,7 +170,7 @@ write_rds(rose, "Players2018/rose.rds", compress = "none")
 ```{r}
 # Dustin Johnson Code - I did the same data cleaning for Dustin Johnson
 
-johnson <- read_excel("~/Data/Final-Project/johnson2018.xlsx")
+johnson <- read_excel("johnson2018.xlsx")
 
 johnson <- johnson %>% 
   rename(tour = Tour, 
