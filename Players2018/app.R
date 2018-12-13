@@ -56,7 +56,6 @@ ui <- navbarPage("PGA Tour Data",
   tabPanel("Stroke Gained",
   
   # Sidebar layout with a select box and descriptive text ----
-  
   sidebarLayout(
     
     # Sidebar panel for inputs ----
@@ -72,32 +71,38 @@ ui <- navbarPage("PGA Tour Data",
       # Text instructions for the select box ----
       
       h5("Use the box above to select which strokes 
-         gained statistic you want to view."), 
+         gained statistic you want to view.") 
       
       # Line break between text ----
       
-      br(), 
+      
       
       # More text describing strokes gained in a smaller font ----
       
-      h6("The strokes gained statistic was developed by the Professor 
-         Mark Broadie of Columbia University alongside the PGA Tour. 
-         It is considered the best method for judging play because it 
-         isolates the different aspects of the game. If, on a certain 
-         day, a player shoots a 69 and the tournament average is 72 
-         then that player will have gained three strokes on the 
-         field. The statistic uses a combination of distance to the pin, 
-         location (fairway or rough) and other factors to calculate a 
-         baseline and then compares it with the player's result to see 
-         if they gained or lost strokes. ")),
+     ),
     
     # Main panel displaying tabs ----
     
     mainPanel(
       
-      # Main panel has a tab for each player ----
+      # Main panel has a tab for each player and an about tab----
       
       tabsetPanel(type = "tabs",
+                  tabPanel("About", 
+                           h5("The strokes gained statistic was developed by the Professor 
+                              Mark Broadie of Columbia University alongside the PGA Tour. 
+                              It is considered the best method for judging performance because it 
+                              isolates the different aspects of the game. If, on a certain 
+                              day, a player shoots a 69 and the tournament average is 72 
+                              then that player will have gained three strokes on the 
+                              field. The statistic uses a combination of distance to the pin, 
+                              location (fairway or rough) and other factors to calculate a 
+                              baseline and then compares it with the player's result to see 
+                              if they gained or lost strokes. "), 
+                           
+                           # I added a footer image to improve the aesthetics of the app ----
+                           
+                           HTML('<center><img src="footer.jpg" height = 123 width = 600 ></center>')),
                   tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
                   tabPanel("Justin Rose", plotOutput("rosePlot")), 
                   tabPanel("Dustin Johnson", plotOutput("johnsonPlot")),
@@ -136,17 +141,29 @@ ui <- navbarPage("PGA Tour Data",
         # Text: text instructions for buttons ----
         
         h5("You can select if a player hit or missed the fairway and then hit or missed 
-           the green in regulation. In general, hitting the fairway and then the green should lead to 
-           lower scores.")
+           the green in regulation.")
       ), 
       
       # Main panel displaying tabs ----
       
       mainPanel(
         
-        # Main panel has a tab for each player ----
+        # Main panel has a tab for each player and about ----
         
         tabsetPanel(type = "tabs",
+                    tabPanel("About", 
+                             h5("For those unfamiliar with golf, the fairway is the grass in the center
+                                of the hole that is cut even and short. If a player misses the fairway he can 
+                                find himself in the rough, longer and inconsistent grass, a water hazard, 
+                                or a bunker. For this tab we will group rough, water hazard and bunkers into
+                                the fairway missed category. Lastly we will look at a greens hit and missed. 
+                                "),
+                             br(), 
+                             h5("In general, a player who hits the green in regulation, allowing two putts to make 
+                                par, would be expected to score better than one that missed the green. The same 
+                                ideas can be applied to hitting and missing fairways."),
+                             br(), 
+                             HTML('<center><img src="golf.png" height = 360 width = 600 ></center>')),
                     tabPanel("Brooks Koepka", plotOutput("koepkaFGPlot")),
                     tabPanel("Justin Rose", plotOutput("roseFGPlot")), 
                     tabPanel("Dustin Johnson", plotOutput("johnsonFGPlot")),
@@ -209,7 +226,11 @@ but putting is not far more important than driving as is suggested by the expres
   "Another interesting thing I noticed was at the one match play event this season, world number one
   at the time, Dustin Johnson had his worst strokes gained: total score. I wonder if this is due to 
   format of the event or if he just had a bad week."
-                                )
+                                ), 
+
+  # I added a footer image to improve the aesthetics of the app ----
+
+  HTML('<center><img src="footer.jpg" height = 144 width = 600 ></center>')
 ),
 
                   # Tab for Fairways and Greens ----
@@ -226,12 +247,18 @@ was that of players who hit the green, there was not a big difference in number 
 on whether or not they hit the fairway. However, if a player missed the fairway and then hit the 
 green, they made far fewer birdies while making a similar number of pars. This was consistent 
 across all four players. I think this is a result of being in the fairway allows the player it 
-hit it closer than from the rough."
-                  ))
+hit it closer than from the rough."), 
+
+# I added a footer image to improve the aesthetics of the app ----
+
+HTML('<center><img src="footer.jpg" height = 123 width = 600 ></center>')
+                    )
           )
         )
     )
-  ) 
+  )
+
+
 )
 
 # Define server logic ----
@@ -333,7 +360,7 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank())  +
       scale_x_discrete()
   })
-  
+      
   # Render plot for Koepka fairway and greens ----
   
   output$koepkaFGPlot <- renderPlot({
