@@ -37,7 +37,7 @@ sg_choices <- c("Total" = "total",
 
 # Define ui as an app with different tabs ----
 
-ui <- navbarPage("PGA Tour Data", 
+ui <- navbarPage("PGA Tour Insights", 
                  
   # Change theme ----
   
@@ -229,7 +229,7 @@ gain strokes while putting in tournaments, it was not far and away better than t
 not win. For example, Justin Rose, winner of the Fort Worth Invitational, gained around 0.04 strokes 
 putting in that tournament but there were five tournaments he did not win where he gained more 
 strokes putting. This leads me to believe that a player must excel in all areas in a given week 
-but putting is not far more important than driving as is suggested by the expression." 
+and putting is not far more important than driving as is suggested by the expression." 
                                                 ), 
 
                                 # Insert line break ----
