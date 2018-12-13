@@ -38,7 +38,7 @@ write_rds(koepkaFG, "Players2018/koepkaFG.rds", compress = "none")
 ```{r}
 # Tiger Woods FG Code - The same data cleaning as above
 
-woodsFG <- read_excel("~/Data/Final-Project/Woods2018.xlsx")
+woodsFG <- read_excel("Woods2018.xlsx")
 
 woodsFG <- woodsFG %>% 
   clean_names() %>% 
