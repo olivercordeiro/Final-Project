@@ -102,7 +102,7 @@ ui <- navbarPage("PGA Tour Data",
                            
                            # I added a footer image to improve the aesthetics of the app ----
                            
-                           HTML('<center><img src="footer.jpg" height = 123 width = 600 ></center>')),
+                           HTML('<center><img src="footer.jpg" height = 144 width = 700 ></center>')),
                   tabPanel("Brooks Koepka", plotOutput("koepkaPlot")),
                   tabPanel("Justin Rose", plotOutput("rosePlot")), 
                   tabPanel("Dustin Johnson", plotOutput("johnsonPlot")),
@@ -230,7 +230,7 @@ but putting is not far more important than driving as is suggested by the expres
 
   # I added a footer image to improve the aesthetics of the app ----
 
-  HTML('<center><img src="footer.jpg" height = 144 width = 600 ></center>')
+  HTML('<center><img src="footer.jpg" height = 144 width = 700 ></center>')
 ),
 
                   # Tab for Fairways and Greens ----
@@ -251,7 +251,7 @@ hit it closer than from the rough."),
 
 # I added a footer image to improve the aesthetics of the app ----
 
-HTML('<center><img src="footer.jpg" height = 123 width = 600 ></center>')
+HTML('<center><img src="footer.jpg" height = 144 width = 700 ></center>')
                     )
           )
         )
